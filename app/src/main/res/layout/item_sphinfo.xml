@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wdp160"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/wdp20"
+        android:paddingRight="@dimen/wdp20">
+
+        <TextView
+            android:id="@+id/year_tv"
+            android:layout_width="@dimen/wdp150"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/wdp32" />
+
+        <View
+            android:layout_width="@dimen/wdp1"
+            android:layout_height="match_parent"
+            android:background="@color/color_CCCCCC" />
+
+        <TextView
+            android:id="@+id/data_tv"
+            android:layout_width="@dimen/wdp0"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/wdp5"
+            android:layout_marginRight="@dimen/wdp5"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/wdp28" />
+
+        <ImageView
+            android:id="@+id/click_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:clickable="true"
+            android:src="@drawable/data_check_selector" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wdp1"
+        android:background="@color/color_CCCCCC"
+        />
+</LinearLayout>

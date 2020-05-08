@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/wdp20"
+        android:paddingRight="@dimen/wdp20"
+        >
+
+        <TextView
+            android:layout_width="@dimen/wdp150"
+            android:layout_height="@dimen/wdp100"
+            android:gravity="center"
+            android:text="@string/quarter_title_string"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/wdp32" />
+
+        <View
+            android:layout_width="@dimen/wdp1"
+            android:layout_height="match_parent"
+            android:background="@color/color_CCCCCC" />
+
+        <TextView
+            android:layout_width="@dimen/wdp0"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/wdp5"
+            android:layout_marginRight="@dimen/wdp5"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/volume_of_mobile_data_petabytes_string"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/wdp32" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/wdp1"
+        android:background="@color/color_CCCCCC" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sphinfo_ryv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

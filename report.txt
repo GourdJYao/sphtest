@@ -1,0 +1,4 @@
+#生成CoverageReport
+gradlew clean assemble
+
+gradlew createDebugCoverageReport

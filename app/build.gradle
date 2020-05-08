@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'jacoco'
+
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmmssSSS", TimeZone.getTimeZone("UTC"))
+}
+buildscript {
+    repositories {
+        mavenCentral()
+
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+    }
+}
+greendao {
+    schemaVersion 1//数据库版本号
+    daoPackage 'com.yaojian.sphtest.greendao.dao'
+    targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
+}
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.yaojian.sphtest"
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug{
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testCoverageEnabled true
+        }
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
+        useNewCruncher = false
+
+        lintOptions {
+            checkReleaseBuilds false
+            abortOnError false
+        }
+
+        dexOptions {
+            javaMaxHeapSize "4g"
+        }
+        dataBinding {
+            enabled true
+        }
+    }
+    testOptions {
+
+        unitTests {
+
+            includeAndroidResources = true
+
+        }
+    }
+}
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"   //版本号可用最新
+}
+
+def coverageSourceDirs = [
+        '../app/src/main/java'
+]
+
+task jacocoTestReport(type:JacocoReport, dependsOn: "testDebugUnitTest") {
+    group = "Reporting"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories = fileTree(
+            dir: '../app/build/intermediates/classes/debug',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$ViewInjector*.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*',
+                       '**/DataBind*.*',
+                       '**/DaoMaster*.*',]          // 去掉不进行检查的文件
+    )
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files('../app/build/jacoco/testDebugUnitTest.exec')
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation "org.robolectric:robolectric:3.8"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:core:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation('com.android.support.test.espresso:espresso-contrib:3.2.0') {
+        transitive false
+    }
+    androidTestImplementation 'com.android.support:support-annotations:29.0.2'
+    androidTestImplementation 'com.android.support:recyclerview-v7:29.0.2'
+    implementation 'com.jayway.android.robotium:robotium-solo:5.6.0'
+    //async-http 包
+    implementation 'com.loopj.android:android-async-http:1.4.9'
+    implementation 'com.android.support:recyclerview-v7:29.0.2'
+    // greendao 包
+    implementation 'org.greenrobot:greendao-generator:3.2.2'
+    implementation 'org.greenrobot:greendao:3.2.2'
+    // gson包
+    implementation 'com.google.code.gson:gson:2.8.2'
+}
